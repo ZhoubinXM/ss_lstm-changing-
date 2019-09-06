@@ -56,9 +56,11 @@ def preprocess_vehicle(data_dir):
     #xinjia
 
     data = np.transpose(data)
-    data=[data[12,1:], data[1,1:], data[14,1:], data[15,1:]]
+    data=[data[12,1:], data[1,1:], data[14,1:], data[15,1:]] # data=[frame,id,y,x]
     x = 2 * (data[3] - min(data[3])) / (max(data[3]) - min(data[3])) - 1
     y = 2 * (data[2] - min(data[2])) / (max(data[2]) - min(data[2])) - 1
+
+
     numvehicles = np.size(np.unique(data[1]))#wogaileyixia
     ranges_x=(max(data[3]) - min(data[3]))
     ranges_y=(max(data[2]) - min(data[2]))
@@ -79,7 +81,7 @@ def get_traj_like_vehicle(data, numvehicles):
     for vehIndex in range(numvehicles):
         traj = []
         for i in range(len(data[:,1])):
-            if data[i][1] == vehIndex + 1:
+            if data[i][1] == vehIndex :
                 #wogaileyixia
                 traj.append([data[1][i], data[0][i], data[-1][i], data[-2][i]])
         traj = np.reshape(traj, [-1, 4])

@@ -49,10 +49,12 @@ def preprocess(data_dir):
     data = np.genfromtxt(file_path, delimiter=',')
     #xinjia
 
-    data = np.transpose(data)
-    data=[data[4,1:], data[1,1:], data[7,1:], data[6,1:]]
-    x = 2 * (data[3] - min(data[3])) / (max(data[3]) - min(data[3])) - 1
+    data = np.transpose(data) # 转置
+    data=[data[4,1:], data[1,1:], data[7,1:], data[6,1:]] # data=[frame,id,yest(y),xest(x)]
+    x = 2 * (data[3] - min(data[3])) / (max(data[3]) - min(data[3])) - 1  # x,y normalization
     y = 2 * (data[2] - min(data[2])) / (max(data[2]) - min(data[2])) - 1
+
+    # this use to anti-mormalization
 
     numPeds = np.size(np.unique(data[1]))#wogaileyixia
     ranges_x=(max(data[3]) - min(data[3]))
@@ -75,7 +77,7 @@ def get_traj_like(data, numPeds):
     for pedIndex in range(numPeds):
         traj = []
         for i in range(len(data[:,1])):
-            if data[i][1] == pedIndex + 1:
+            if data[i][1] == pedIndex :
                 #wogaileyixia
                 traj.append([data[1][i], data[0][i], data[-1][i], data[-2][i]])
         traj = np.reshape(traj, [-1, 4])

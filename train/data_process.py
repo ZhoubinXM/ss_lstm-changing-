@@ -44,7 +44,7 @@ class DataProcesser:
         for pedIndex in range(self.ped_num):
             traj = []
             for i in range(len(self.raw_data[1])):
-                if self.raw_data[1][i] == pedIndex + 1:
+                if self.raw_data[1][i] == pedIndex:
                     traj.append([self.raw_data[1][i], self.raw_data[0][i], self.raw_data[-1][i], self.raw_data[-2][i]])
             traj = np.reshape(traj, [-1, 4])
 

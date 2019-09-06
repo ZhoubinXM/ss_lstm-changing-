@@ -41,7 +41,7 @@ config.gpu_options.allow_growth=True
 config.gpu_options.per_process_gpu_memory_fraction=0.5
 k.tensorflow_backend.set_session(tf.Session(config=config))
 
-
+# FDE 最终位移误差（final displacement error）
 def calculate_FDE(test_label, predicted_output, test_num, show_num):
     total_FDE = np.zeros((test_num, 1))
     for i in range(test_num):
@@ -54,6 +54,7 @@ def calculate_FDE(test_label, predicted_output, test_num, show_num):
 
     return np.average(show_FDE)
 
+# ADE 平均位移误差（Average displacement error）
 def calculate_ADE(test_label, predicted_output, test_num, predicting_frame_num, show_num):
     total_ADE = np.zeros((test_num, 1))
     for i in range(test_num):

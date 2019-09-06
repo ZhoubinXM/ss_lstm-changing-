@@ -33,7 +33,7 @@ class veh_DataProcesser:
         self.raw_data=(self.raw_data[0], self.raw_data[1], y, x)
 
         # self.raw_data = np.genfromtxt(self.file_path).T
-        self.veh_num = np.size(np.unique(self.raw_data[1]))
+        self.veh_num = np.size(np.unique(self.raw_data[1]))  # 将相同的frameID给Delete掉
 
     def get_traj(self):
         """
@@ -44,7 +44,7 @@ class veh_DataProcesser:
         for pedIndex in range(self.veh_num):
             traj = []
             for i in range(len(self.raw_data[1])):
-                if self.raw_data[1][i] == pedIndex + 1:
+                if self.raw_data[1][i] == pedIndex:
                     traj.append([self.raw_data[1][i], self.raw_data[0][i], self.raw_data[-1][i], self.raw_data[-2][i]])
             traj = np.reshape(traj, [-1, 4])
 

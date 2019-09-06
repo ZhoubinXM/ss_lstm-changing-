@@ -45,9 +45,9 @@ def calculate_FDE(test_label, predicted_output, test_num, show_num):
     for i in range(test_num):
         predicted_result_temp = predicted_output[i]
         label_temp = test_label[i]
-        total_FDE[i] = distance.euclidean(predicted_result_temp[-1], label_temp[-1])
+        total_FDE[i] = distance.euclidean(predicted_result_temp[-1], label_temp[-1])  # 欧式距离公式 (两点间的距离公式)
 
-    show_FDE = heapq.nsmallest(show_num, total_FDE)
+    show_FDE = heapq.nsmallest(show_num, total_FDE)  # 取total_FDE里面最小的show_num的数据
 
     show_FDE = np.reshape(show_FDE, [show_num, 1])
 
@@ -246,21 +246,22 @@ def all_run(epochs, predicting_frame_num, leave_dataset_index, map_index, show_n
 
     # --------------------------------------------------------------------------
 
+    # x y 是包括检测和输出的所有数据
     x_concat_test = np.concatenate([person_input_10, test_output], axis=1)   # 按照行方向拼接矩阵  三维矩阵 见text.py
     x_concat_model = np.concatenate([person_input_10, predicted_output], axis=1)
 
     # 将预测坐标保存至person_n.txt文件
-    out_fig_dir = os.path.join('/home/lianli/zhoubin_work/zhoubin_work/ss-lstm_0715', "figs")
-    os.makedirs(out_fig_dir, exist_ok=True)
+    writefile=open('person_n.txt','w')
+    writefile.write('拼接的测试数据：\n\n'+x_concat_test)
+    writefile.write('\n\n拼接的预测数据：\n\n'+x_concat_model)
 
-    fig = visualize_trajectories(x_concat_test, x_concat_model,8, 12)
-    fig_file = "01_person_n.png"
-    fig.savefig(fig_file)
-    plt.close()
-
-    # with open("traj_SS_LSTM_logmap_1000_Zara2_070503", "wb+") as f:
-    #     pickle.dump(predicted_output, f)
-    #     print('The predicted_output has been saved in ' + 'traj_ss_lstm_logmap_1000_Zara2_070503')
+    # out_fig_dir = os.path.join('/home/lianli/zhoubin_work/zhoubin_work/ss-lstm_0715', "figs")
+    # os.makedirs(out_fig_dir, exist_ok=True)
+    #
+    # fig = visualize_trajectories(x_concat_test, x_concat_model,8, 12)
+    # fig_file = "01_person_n.png"
+    # fig.savefig(fig_file)
+    # plt.close()
 
     print('Predicting Done!')
     print('Calculating Predicting Error...')
