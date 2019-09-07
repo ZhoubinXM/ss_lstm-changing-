@@ -129,6 +129,7 @@ obs_veh_10=check_veh_10.obs_veh
 obs_10=check_10.obs
 pred_veh_10=check_veh_10.pred_veh
 pred_10=check_10.pred
+
 vehicle_input_10=vehicle_model_input(obs_veh_10,observed_frame_num)
 person_input_10 = person_model_input(obs_10, observed_frame_num)
 group_circle_10 = circle_group_model_input(obs_10, observed_frame_num, neighborhood_size, dimensions_1,neighborhood_radius, grid_radius, grid_angle, circle_map_weights, raw_data_10)
